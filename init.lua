@@ -174,7 +174,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 
 -- Undodir configuration
-vim.o.undodir = os.getenv('HOME') .. '/.vim/undodir'
+vim.o.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 
 -- Search configuration
 vim.o.incsearch = true
@@ -550,9 +550,14 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
+          -- Signature help, for help with function signatures.
+          map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help')
+
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
+
+
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -669,6 +674,28 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
+            -- Enable Vue None-Hybrid Mode
+            if server_name == 'tsserver' then
+              server.init_options = {
+                plugins = {
+                  {
+                    name = '@vue/typescript-plugin',
+                    location = 'volar',
+                    languages = { 'vue' },
+                  },
+                },
+              }
+            end
+
+            if server_name == 'volar' then
+              server.init_options = {
+                vue = {
+                  hybridMode = false,
+                },
+              }
+            end
+
             require('lspconfig')[server_name].setup(server)
           end,
         },
@@ -710,7 +737,10 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } },
+        vue = { { 'prettierd', 'prettier' } },
+        astro = { 'prettier' },
       },
     },
   },
@@ -868,7 +898,7 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      -- require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -934,9 +964,9 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
