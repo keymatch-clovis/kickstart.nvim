@@ -10,6 +10,10 @@ return {
     },
     -- Optional dependencies
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('oil').setup()
+      vim.keymap.set('n', '<leader>O', '<CMD>Oil<CR>', { desc = '[O]pen parent directory' })
+    end,
   },
   {
     'mbbill/undotree',
