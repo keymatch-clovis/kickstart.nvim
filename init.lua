@@ -749,6 +749,10 @@ require('lazy').setup({
           end,
         },
       }
+
+      require('lspconfig').gleam.setup {
+        capabilities = vim.tbl_deep_extend('force', {}, capabilities, {}),
+      }
     end,
   },
 
@@ -998,7 +1002,7 @@ require('lazy').setup({
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = false, disable = { 'ruby' } },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
@@ -1054,3 +1058,5 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.keymap.set('n', '<leader>nq', '<cmd>:q<CR>', { desc = '[N]eovim [Q]uit' })
