@@ -3,41 +3,36 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  {
-    'stevearc/oil.nvim',
-    opts = {
-      experimental_watch_for_changes = true,
-    },
-    -- Optional dependencies
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('oil').setup()
-      vim.keymap.set('n', '<leader>O', '<CMD>Oil<CR>', { desc = '[O]pen parent directory' })
-    end,
-  },
-  {
-    'mbbill/undotree',
-    config = function()
-      vim.cmd [[ let g:undotree_SetFocusWhenToggle = 1]]
-    end,
-    keys = {
-      {
-        '<leader>U',
-        function()
-          vim.cmd.UndotreeToggle()
+    {
+        'stevearc/oil.nvim',
+        opts = {
+            experimental_watch_for_changes = true,
+        },
+        -- Optional dependencies
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require('oil').setup()
+            vim.keymap.set(
+                'n',
+                '<leader>O',
+                '<CMD>Oil<CR>',
+                { desc = '[O]pen parent directory' }
+            )
         end,
-        desc = '[U]ndotree',
-      },
     },
-  },
-  {
-    'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'VeryLazy',
-    config = function()
-      require('nvim-surround').setup {
-        -- Configuration here, or leave empty to use defaults
-      }
-    end,
-  },
+    {
+        'mbbill/undotree',
+        config = function()
+            vim.cmd [[ let g:undotree_SetFocusWhenToggle = 1]]
+        end,
+        keys = {
+            {
+                '<leader>U',
+                function()
+                    vim.cmd.UndotreeToggle()
+                end,
+                desc = '[U]ndotree',
+            },
+        },
+    },
 }
