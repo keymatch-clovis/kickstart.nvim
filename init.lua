@@ -196,8 +196,8 @@ vim.keymap.set('n', '<M-h>', '<cmd>lnext<CR>')
 vim.keymap.set('n', '<M-l>', '<cmd>lprev<CR>')
 
 -- Quickfix list keymaps
-vim.keymap.set('n', '<S-M-h>', '<cmd>qnext<CR>')
-vim.keymap.set('n', '<S-M-l>', '<cmd>qprev<CR>')
+vim.keymap.set('n', '<S-M-h>', '<cmd>cnext<CR>')
+vim.keymap.set('n', '<S-M-l>', '<cmd>cprev<CR>')
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -450,7 +450,10 @@ require('lazy').setup({
             { 'nvim-telescope/telescope-ui-select.nvim' },
 
             -- Useful for getting pretty icons, but requires a Nerd Font.
-            { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+            {
+                'nvim-tree/nvim-web-devicons',
+                enabled = vim.g.have_nerd_font,
+            },
         },
         config = function()
             -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -925,10 +928,20 @@ require('lazy').setup({
                 -- python = { "isort", "black" },
                 --
                 -- You can use 'stop_after_first' to run the first available formatter from the list
-                -- javascript = { 'prettierd', 'prettier', stop_after_first = true },
-                -- typescript = { 'prettierd', 'prettier', stop_after_first = true },
-                javascript = { 'biome', stop_after_first = true },
-                typescript = { 'biome', stop_after_first = true },
+                javascript = {
+                    'prettierd',
+                    'prettier',
+                    stop_after_first = true,
+                },
+                typescript = {
+                    'prettierd',
+                    'prettier',
+                    stop_after_first = true,
+                },
+                json = { 'prettierd', 'prettier', stop_after_first = true },
+                -- javascript = { 'biome', stop_after_first = true },
+                -- typescript = { 'biome', stop_after_first = true },
+                -- json = { 'biome', stop_after_first = true },
                 javascriptreact = {
                     'prettierd',
                     'prettier',
