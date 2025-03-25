@@ -847,9 +847,15 @@ require('lazy').setup({
                 --    https://github.com/pmizio/typescript-tools.nvim
                 --
                 -- But for many setups, the LSP (`ts_ls`) will work just fine
-                -- ts_ls = {},
-                --
-
+                ts_ls = {
+                    settings = {
+                        typescript = {
+                            preferences = {
+                                importModuleSpecifier = 'project-relative',
+                            },
+                        },
+                    },
+                },
                 lua_ls = {
                     -- cmd = { ... },
                     -- filetypes = { ... },
@@ -860,7 +866,7 @@ require('lazy').setup({
                                 callSnippet = 'Replace',
                             },
                             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                            -- diagnostics = { disable = { 'missing-fields' } },
+                            diagnostics = { disable = { 'missing-fields' } },
                         },
                     },
                 },
@@ -929,16 +935,23 @@ require('lazy').setup({
                 --
                 -- You can use 'stop_after_first' to run the first available formatter from the list
                 javascript = {
+                    'biome',
                     'prettierd',
                     'prettier',
                     stop_after_first = true,
                 },
                 typescript = {
+                    'biome',
                     'prettierd',
                     'prettier',
                     stop_after_first = true,
                 },
-                json = { 'prettierd', 'prettier', stop_after_first = true },
+                json = {
+                    'biome',
+                    'prettierd',
+                    'prettier',
+                    stop_after_first = true,
+                },
                 -- javascript = { 'biome', stop_after_first = true },
                 -- typescript = { 'biome', stop_after_first = true },
                 -- json = { 'biome', stop_after_first = true },
@@ -1117,7 +1130,7 @@ require('lazy').setup({
             -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
             -- - sd'   - [S]urround [D]elete [']quotes
             -- - sr)'  - [S]urround [R]eplace [)] [']
-            require('mini.surround').setup()
+            -- require('mini.surround').setup()
 
             -- Simple and easy statusline.
             --  You could remove this setup call if you don't like it,
@@ -1226,3 +1239,6 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+require('conform').formatters.golines = {
+    append_args = { '-m', '80' },
+}
