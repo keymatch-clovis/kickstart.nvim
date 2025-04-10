@@ -3,8 +3,8 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
-      options = { theme = 'everforest' },
-      extensions = { 'oil' },
+      options = { theme = 'tokyonight' },
+      extensions = { 'oil', 'mason', 'lazy', 'fzf' },
     },
   },
 }
