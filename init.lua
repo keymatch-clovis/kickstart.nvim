@@ -705,6 +705,7 @@ require('lazy').setup({
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
+
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
@@ -717,6 +718,11 @@ require('lazy').setup({
             require('lspconfig')[server_name].setup(server)
           end,
         },
+      }
+
+      -- Gleam support.
+      require('lspconfig').gleam.setup {
+        capabilities = vim.tbl_deep_extend('force', {}, capabilities, {}),
       }
     end,
   },
@@ -746,21 +752,21 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = {
-          'biome',
           'prettierd',
           'prettier',
+          'biome',
           stop_after_first = true,
         },
         typescript = {
-          'biome',
           'prettierd',
           'prettier',
+          'biome',
           stop_after_first = true,
         },
         json = {
-          'biome',
           'prettierd',
           'prettier',
+          'biome',
           stop_after_first = true,
         },
         -- javascript = { 'biome', stop_after_first = true },
@@ -853,6 +859,15 @@ require('lazy').setup({
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        menu = {
+          max_height = 20,
+          draw = {
+            columns = {
+              { 'kind_icon' },
+              { 'label', 'label_description', gap = 1, 'kind' },
+            },
+          },
+        },
       },
 
       sources = {
@@ -896,7 +911,7 @@ require('lazy').setup({
         },
       }
 
-      vim.cmd.colorscheme 'tokyonight-moon'
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
